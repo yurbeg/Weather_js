@@ -33,13 +33,14 @@ searchBtn.addEventListener("click", ()=>{
 
 
 
-function currentCityName() {
-    let center;
-    if (YMaps.location) {
-        center = new YMaps.GeoPoint(YMaps.location.longitude, YMaps.location.latitude);
-    }
-    wetherApi(YMaps.location.city)
+function currentCityName(crd) {
+  let center;    
+  if (YMaps.location) {
+      center = new YMaps.GeoPoint(crd.coords.latitude,crd.coords.longitude );
   }
-  currentCityName()
+  wetherApi(YMaps.location.city)
+}
 
 
+
+navigator.geolocation.getCurrentPosition(currentCityName)
