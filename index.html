@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+
+  <link rel="icon" type="image/x-icon" href="/weather.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <script charset="utf-8" src="https://api-maps.yandex.ru/1.1/index.xml" type="text/javascript"></script>
+</head>
+<body>
+    <h1 style="text-align: center; background-color:rgb(233, 153, 84); color: aliceblue;">Weather</h1>
+    <div class="conatainer">
+        <div>
+            <header>
+                <input id="searchInput" type="text" placeholder="City">
+                <button id="search"><i class="fa fa-search"></i></button>
+            </header>
+            <div class="cards">
+                <div id="city" class = "card">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <h2></h2>
+                    <span>City</span>
+                </div>
+                <div id="country" class = "card">
+                    <h2></h2>
+                    <span>Country</span>
+                </div>
+            </div>
+            <div id= "temp"  class="temp">
+                <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+                <h2></h2>
+                <span class="temperature">Temperature</span>
+                <span class="mdi--weather-partly-cloudy"></span>
+
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
