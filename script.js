@@ -4,43 +4,51 @@ const searchBtn = document.getElementById("search");
 const input = document.getElementById("searchInput");
 const tempDiv = document.getElementById("temp");
 const heeader = document.querySelector("header")
+const API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+const API_KEY = "fd48bdf8a8b87b3c140f17625f4e2d57";
 
 let wetherApi = (city) => {
-//   let city = input.value;
-  fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=RM6TEEP8AGFTDPLV26AF2S94D&contentType=json`
-  )
-    .then((res,) => {
-      return res.json();
+  
+  fetch(`${API_URL}${city}&appid=${API_KEY}&units=metric`) 
+  .then((res) => {
+      return res.json();l
     })
-    .then((data) => {        
-      divCity.children[1].innerHTML = data.address;
-      divCountry.children[0].innerHTML = data.resolvedAddress;
+    .then((data) => {  
+      divCity.children[1].innerHTML = data.name;
+      divCountry.children[0].innerHTML = data.sys.country;
       tempDiv.children[1].innerHTML = `
-        ${data.currentConditions.temp}°C
+        ${data.main.temp}°C
     `;
-    })
-    .catch(err=>{
-            alert("Oops,there is no such city")
-           
-    })
-    input.value = "" 
+  })
+  .catch(err=>{
+    divCity.children[1].innerHTML = "City not found";
+    divCountry.children[0].innerHTML = "";
+    tempDiv.children[1].innerHTML = '';
+  })
+  .finally(()=>{
+    input.value = ""
+  })
+  
 };
 
-searchBtn.addEventListener("click", ()=>{
+searchBtn.addEventListener("click", ()=>{  
     wetherApi(input.value)
 });
+window.addEventListener("keyup",(e)=>{
+  if(e.key === "Enter"){
+    wetherApi(input.value)
+  }
+})
 
 
 
 function currentCityName(crd) {
-  let center;    
-  if (YMaps.location) {
-      center = new YMaps.GeoPoint(crd.coords.latitude,crd.coords.longitude );
-  }
-  wetherApi(YMaps.location.city)
-}
+    let center;    
 
-
-
+    if (YMaps.location) {
+        center = new YMaps.GeoPoint(crd.coords.latitude,crd.coords.longitude );
+    }    
+    wetherApi(YMaps.location.city)
+  } 
 navigator.geolocation.getCurrentPosition(currentCityName)
+
